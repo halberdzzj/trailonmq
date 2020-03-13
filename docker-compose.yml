@@ -1,0 +1,34 @@
+version: '3'
+networks: 
+    theNet:
+        driver: bridge
+services: 
+    service1:
+        container_name: app-service1
+        # restart: always
+        build: ./service1
+        # image: 
+        networks: 
+            - theNet
+        ports: 
+            - '3000:3000'
+        logging:
+            driver: 'json-file'
+            options:
+                max-size: "25000k"
+                max-file: "10"
+    # service1-db:
+    service2:
+        container_name: app-service2
+        # restart: always
+        build: ./service2
+        # image: 
+        ports: 
+            - '3001:3001'
+    rabbitmq:
+        image: "rabbitmq:3.8.3"
+        networks: 
+            - theNet
+        ports: 
+            - '5672:5672'
+    

@@ -1,0 +1,13 @@
+FROM node:12.16.1-alpine3.9
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install && npm -g install nodemon
+COPY . .
+# WORKDIR /app
+ENV PORT=3000
+
+EXPOSE ${PORT}
+
+CMD ["nodemon" ,"-L" ,"-e","js, json","index.js"]
